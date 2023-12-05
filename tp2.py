@@ -1,20 +1,20 @@
 # Auteurs: Dipika Patel, Junya Wang
 # Date: 9 décembre 2023
 
-# def init():
+# # def init():
 
-    # changer le contenu HTML de l'élément racine
-    racine = document.querySelector("#cb-body")
-    racine.innerHTML = """
-      <style>
-        #jeu table { float:none; }
-        #jeu table td { border:0; padding:1px 2px; height:auto; width:auto; }
-        #jeu table td img { height:140px; }
-      </style>
-      <div id="jeu">
-        <table>
-        </table>
-      </div>"""
+#     # changer le contenu HTML de l'élément racine
+#     racine = document.querySelector("#cb-body")
+#     racine.innerHTML = """
+#       <style>
+#         #jeu table { float:none; }
+#         #jeu table td { border:0; padding:1px 2px; height:auto; width:auto; }
+#         #jeu table td img { height:140px; }
+#       </style>
+#       <div id="jeu">
+#         <table>
+#         </table>
+#       </div>"""
 
 
 # Vous devez remplacer le contenu de ce fichier par votre propre code
