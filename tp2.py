@@ -1,7 +1,7 @@
 # Auteurs: Dipika Patel, Junya Wang
 # Date: 9 décembre 2023
 
-def init():
+# def init():
 
     # changer le contenu HTML de l'élément racine
     racine = document.querySelector("#cb-body")
