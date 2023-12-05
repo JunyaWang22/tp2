@@ -11,10 +11,6 @@ def init():
         #jeu table td { border:0; padding:1px 2px; height:auto; width:auto; }
         #jeu table td img { height:140px; }
       </style>
-    (# Je ne suis pas sûr où mettre body)
-      <body onload="init()">
-       <div id="cb-body"></div>
-      </body>
       <div id="jeu">
         <table>
         </table>
