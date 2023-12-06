@@ -21,8 +21,11 @@
 # tel qu'indiqué dans la description du TP2.  Le code ici correspond
 # à l'exemple donné dans la description.
 
+# Vous devez remplacer le contenu de ce fichier par votre propre code
+# tel qu'indiqué dans la description du TP2.  Le code ici correspond
+# à l'exemple donné dans la description.
+
 import math
-import random
 # from xml.dom.minidom import Document
 
 elem = document.querySelector('#cb-body')
@@ -66,7 +69,8 @@ css = """
 elem.innerHTML = css
 deck = list(range(0,52))
 
-CARTES = ['10C.svg', '10D.svg', '10H.svg', '10S.svg', '2C.svg', '2D.svg', '2H.svg', 
+CARTES = [
+ '10C.svg', '10D.svg', '10H.svg', '10S.svg', '2C.svg', '2D.svg', '2H.svg', 
  '2S.svg', '3C.svg', '3D.svg', '3H.svg', '3S.svg', '4C.svg', '4D.svg', 
  '4H.svg', '4S.svg', '5C.svg', '5D.svg', '5H.svg', '5S.svg', '6C.svg', 
  '6D.svg', '6H.svg', '6S.svg', '7C.svg', '7D.svg', '7H.svg', '7S.svg', 
@@ -85,8 +89,12 @@ def shuffle(deck):
 
 def table(contenu): return '<table>' + contenu + '</table>'
 def tr(contenu): return '<tr>' + contenu + '</tr>'
-def td(contenu): return '<td>' + contenu + '</td>'
+# def tr(contenu): return '<td>' + contenu + '</td>'
+def td(contenu, id_pos): 
+    return '<td' + ' id=' + 'case' + str(id_pos) + '>' + contenu + '</td>'
 def img(card): return '<img src="cards/'+ card + '">'
+
+empty = []
 
 def init():
     ROW = 4
@@ -100,13 +108,15 @@ def init():
         for _ in range(COL):
             val = CARTES[cartes[c]]
             if(not val.startswith('A')):
-                column.append(td(img(val)))
+                column.append(td(img(val),c))
             else:
-                column.append(td('test'))
+                column.append(td('',c))
+               # breakpoint()
+                empty.append(c-1)
             c += 1
         line.append(tr(''.join(column)))
    
     tbl = table(''.join(line))
     return tbl
 
-elem.innerHTML = init()
+elem.innerHTML += init()
