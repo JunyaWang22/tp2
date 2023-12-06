@@ -1,29 +1,7 @@
 # Auteurs: Dipika Patel, Junya Wang
 # Date: 9 décembre 2023
 
-def init():
-
-    # changer le contenu HTML de l'élément racine
-    racine = document.querySelector("#cb-body")
-    racine.innerHTML = """
-      <style>
-        #jeu table { float:none; }
-        #jeu table td { border:0; padding:1px 2px; height:auto; width:auto; }
-        #jeu table td img { height:140px; }
-      </style>
-      <div id="jeu">
-        <table>
-        </table>
-      </div>"""
-
-
-# Vous devez remplacer le contenu de ce fichier par votre propre code
-# tel qu'indiqué dans la description du TP2.  Le code ici correspond
-# à l'exemple donné dans la description.
-
 import math
-import random
-# from xml.dom.minidom import Document
 
 elem = document.querySelector('#cb-body')
 
@@ -66,14 +44,17 @@ css = """
 elem.innerHTML = css
 deck = list(range(0,52))
 
-CARTES = ['10C.svg', '10D.svg', '10H.svg', '10S.svg', '2C.svg', '2D.svg', '2H.svg', 
- '2S.svg', '3C.svg', '3D.svg', '3H.svg', '3S.svg', '4C.svg', '4D.svg', 
- '4H.svg', '4S.svg', '5C.svg', '5D.svg', '5H.svg', '5S.svg', '6C.svg', 
- '6D.svg', '6H.svg', '6S.svg', '7C.svg', '7D.svg', '7H.svg', '7S.svg', 
- '8C.svg', '8D.svg', '8H.svg', '8S.svg', '9C.svg', '9D.svg', '9H.svg', 
- '9S.svg', 'AC.svg', 'AD.svg', 'AH.svg', 'AS.svg', 'JC.svg', 'JD.svg', 
- 'JH.svg', 'JS.svg', 'KC.svg', 'KD.svg', 'KH.svg', 'KS.svg', 'QC.svg', 
- 'QD.svg', 'QH.svg', 'QS.svg']
+lst = list('A'+'2'+'3'+'4'+'5'+'6'+'7'+'8'+'9'+'10'+'J'+'Q'+'K')
+cartesC=[]
+cartesD=[]
+cartesH=[]
+cartesS=[]
+for i in range (len(lst)):
+    cartesC.append(lst[i]+'C.svg')
+    cartesD.append(lst[i]+'D.svg')
+    cartesH.append(lst[i]+'H.svg')
+    cartesS.append(lst[i]+'S.svg')
+CARTES = cartesC + cartesD + cartesH + cartesS
 
 def shuffle(deck):
     for i in range(len(deck) -1, -1, -1):
@@ -85,8 +66,12 @@ def shuffle(deck):
 
 def table(contenu): return '<table>' + contenu + '</table>'
 def tr(contenu): return '<tr>' + contenu + '</tr>'
-def td(contenu): return '<td>' + contenu + '</td>'
+def case (id_pos): return 'case' + str(id_pos)
+def td(contenu, id_pos): 
+    return '<td' + ' id=' + case (id_pos) + '>' + contenu + '</td>'
 def img(card): return '<img src="cards/'+ card + '">'
+
+empty = []
 
 def init():
     ROW = 4
@@ -99,14 +84,18 @@ def init():
         column = []
         for _ in range(COL):
             val = CARTES[cartes[c]]
+            val_left = CARTES[cartes[c]-1]
             if(not val.startswith('A')):
-                column.append(td(img(val)))
+                column.append(td(img(val),c))
             else:
-                column.append(td('test'))
+                column.append(td(img('absent.svg'),c))
+               # breakpoint()
+                
+                empty.append(c-1)
             c += 1
         line.append(tr(''.join(column)))
    
     tbl = table(''.join(line))
     return tbl
 
-elem.innerHTML = init()
+elem.innerHTML += init()
