@@ -1,17 +1,12 @@
 import math
 import random
-from xml.dom.minidom import Document
 
-# Create a Document object
-doc = Document()
-
-# Create the html element and add it to the document
-html = doc.createElement('html')
-doc.appendChild(html)
-
-# Create the style element and add your CSS
-style = doc.createElement('style')
-style.appendChild(doc.createTextNode("""
+# Create the HTML content as a string
+# html_content = document.querySelector("#cb-body")
+# html_content.innerHTML
+html_content = """
+<html>
+<style>
 #cb-body { font-size: 24px; }
 #cb-body td { border: 1px solid black; }
 #cb-body table {
@@ -40,16 +35,15 @@ style.appendChild(doc.createTextNode("""
     width: 100%;
     height: 100%;
 }
+
 #cb-body { float: none; }
 #cb-body table td { border: 0; padding: 1px 2px; height: auto; }
 #cb-body table td img { height: auto; }
-"""))
-html.appendChild(style)
-
-# Create the body element and add it to the html
-body = doc.createElement('body')
-html.appendChild(body)
-
+</style>
+<body>
+</body>
+</html>
+"""
 deck = list(range(0,52))
 CARTES = ['10C.svg', '10D.svg', '10H.svg', '10S.svg', '2C.svg', '2D.svg', '2H.svg', 
  '2S.svg', '3C.svg', '3D.svg', '3H.svg', '3S.svg', '4C.svg', '4D.svg', 
@@ -69,35 +63,32 @@ def shuffle(deck):
         deck[j] = tmp
     return deck
 
-def table(contenu): return '<table>' + contenu + '</table>'
-def tr(contenu): return '<tr>' + contenu + '</tr>'
-def td(contenu): return '<td>' + contenu + '</td>'
-def img(card): return '<img src="cards/'+ card + '">'
-
 # Function to initialize the game
 def init():
     ROW = 4
     COL = 13
     c = 0
+    deck = list(range(0, 52))
     cartes = shuffle(deck)
-    line = []
-    
+    table_content = []
+
     for _ in range(ROW):
-        column = []
+        row_content = []
         for _ in range(COL):
-            val = CARTES[cartes[c]]
-            if(not val.startswith('A')):
-                column.append(td(img(val)))
+            val = cartes[c]
+            if not CARTES[val].startswith('A'):
+                row_content.append('<td><img src="cards/{CARTES[val]}"></td>')
             else:
-                column.append(td('test'))
+                row_content.append('<td>test</td>')
             c += 1
-        line.append(tr(''.join(column)))
-   
-    tbl = table(''.join(line))
-    return tbl
+        table_content.append('<tr>{"".join(row_content)}</tr>')
 
-# Set the HTML content to the result of the init function
-body.appendChild(init())
+    return '<table>{"".join(table_content)}</table>'
 
-# Now you can print the document to see the generated HTML
-print(doc.toprettyxml())
+# Insert the generated HTML content into the specified location
+start_index = html_content.find('<body>') + len('<body>')
+html_content = html_content[:start_index] + init() + html_content[start_index:]
+
+# Print the final HTML content
+print(html_content)
+
