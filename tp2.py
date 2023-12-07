@@ -44,16 +44,16 @@ css = """
 elem.innerHTML = css
 deck = list(range(0,52))
 
-lst = list('A'+'2'+'3'+'4'+'5'+'6'+'7'+'8'+'9'+'10'+'J'+'Q'+'K')
+chiffre = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 cartesC=[]
 cartesD=[]
 cartesH=[]
 cartesS=[]
-for i in range (len(lst)):
-    cartesC.append(lst[i]+'C.svg')
-    cartesD.append(lst[i]+'D.svg')
-    cartesH.append(lst[i]+'H.svg')
-    cartesS.append(lst[i]+'S.svg')
+for i in range (len(chiffre)):
+    cartesC.append(chiffre[i]+'C.svg')
+    cartesD.append(chiffre[i]+'D.svg')
+    cartesH.append(chiffre[i]+'H.svg')
+    cartesS.append(chiffre[i]+'S.svg')
 CARTES = cartesC + cartesD + cartesH + cartesS
 
 def shuffle(deck):
@@ -72,7 +72,8 @@ def td(contenu, id_pos):
 def img(card): return '<img src="cards/'+ card + '">'
 
 empty = []
-
+casel=[]
+list_pos=[]
 def init():
     ROW = 4
     COL = 13
@@ -84,14 +85,18 @@ def init():
         column = []
         for _ in range(COL):
             val = CARTES[cartes[c]]
-            val_left = CARTES[cartes[c]-1]
+            # val_left = CARTES[cartes[c]-1]
+            
             if(not val.startswith('A')):
                 column.append(td(img(val),c))
             else:
                 column.append(td(img('absent.svg'),c))
                # breakpoint()
-                
-                empty.append(c-1)
+                # empty.append(c-1)
+                #print (cartes.index(list_pos[c-1].index)
+                #casel.append ("#"+case(cartes.index(list_pos[c-1].index)))
+            # casel.append case((CARTES[cartes[c-1]-1].index+1).index+1)
+            list_pos.append(val)
             c += 1
         line.append(tr(''.join(column)))
    
@@ -99,3 +104,7 @@ def init():
     return tbl
 
 elem.innerHTML += init()
+
+for i in range (len(casel)):
+    case0 = document.querySelector(casel[i])
+    case0.setAttribute("style", "background-color: lime")
