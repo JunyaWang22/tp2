@@ -73,7 +73,7 @@ def img(card): return '<img src="cards/'+ card + '">'
 
 empty = []
 casel=[]
-list_pos=[]
+
 def init():
     ROW = 4
     COL = 13
@@ -85,18 +85,14 @@ def init():
         column = []
         for _ in range(COL):
             val = CARTES[cartes[c]]
-            # val_left = CARTES[cartes[c]-1]
             
             if(not val.startswith('A')):
                 column.append(td(img(val),c))
             else:
                 column.append(td(img('absent.svg'),c))
-               # breakpoint()
-                # empty.append(c-1)
-                #print (cartes.index(list_pos[c-1].index)
-                #casel.append ("#"+case(cartes.index(list_pos[c-1].index)))
-            # casel.append case((CARTES[cartes[c-1]-1].index+1).index+1)
-            list_pos.append(val)
+                if c % 13 != 0 and ((CARTES[cartes[c-1]+1]).startswith('2') is False):
+                	casel.append(cartes.index(CARTES.index(CARTES[cartes[c-1]+1])))
+
             c += 1
         line.append(tr(''.join(column)))
    
@@ -106,5 +102,5 @@ def init():
 elem.innerHTML += init()
 
 for i in range (len(casel)):
-    case0 = document.querySelector(casel[i])
+    case0 = document.querySelector("#"+case(casel[i]))
     case0.setAttribute("style", "background-color: lime")
