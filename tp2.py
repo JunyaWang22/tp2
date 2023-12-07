@@ -1,26 +1,3 @@
-# Auteurs: Dipika Patel, Junya Wang
-# Date: 9 décembre 2023
-
-# # def init():
-
-#     # changer le contenu HTML de l'élément racine
-#     racine = document.querySelector("#cb-body")
-#     racine.innerHTML = """
-#       <style>
-#         #jeu table { float:none; }
-#         #jeu table td { border:0; padding:1px 2px; height:auto; width:auto; }
-#         #jeu table td img { height:140px; }
-#       </style>
-#       <div id="jeu">
-#         <table>
-#         </table>
-#       </div>"""
-
-
-# Vous devez remplacer le contenu de ce fichier par votre propre code
-# tel qu'indiqué dans la description du TP2.  Le code ici correspond
-# à l'exemple donné dans la description.
-
 # Vous devez remplacer le contenu de ce fichier par votre propre code
 # tel qu'indiqué dans la description du TP2.  Le code ici correspond
 # à l'exemple donné dans la description.
@@ -120,3 +97,45 @@ def init():
     return tbl
 
 elem.innerHTML += init()
+
+def card_value(card):
+    card = card.split('.')[0]
+    ranks = '2345678910JQKA'
+    suits = 'CDHS'
+
+    rank = card[:-1]
+    suit = card[-1]
+
+    return ranks.index(rank), suits.index(suit)
+
+def find_higher_card(card, card_list):
+    current_rank, current_suit = card_value(card)
+
+    # Find a card with a higher rank and the same suit
+    for other_card in card_list:
+        other_rank, other_suit = card_value(other_card)
+
+        inc = 2 if current_rank == 8 else 1
+
+        # if other_suit == current_suit and other_rank == current_rank + inc:
+        #     return other_card
+
+        if other_suit == current_suit and other_rank+inc == current_rank + inc:
+            value = card_value(other_card)
+            print(value)
+
+    # If no higher card with the same suit is found
+    return None
+voisin = []
+for x in empty:
+    voisin.append(CARTES[deck[x]])   #finds the card left to empty
+for v in voisin :
+    find_higher_card(v,voisins)
+    # for x in deck: 
+    #     print(CARTES[deck[x]])
+              #case = document.querySelector('#'+ str(id_pos))
+    #case.setAttribute("style", "background-color: lime")
+
+#for i in voisin:
+    
+    
