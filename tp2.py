@@ -10,7 +10,7 @@ css = """
 #cb-body { font-size: 24px; }
 #cb-body td { border: 1px solid black; }
 #cb-body table {
-    float: left;
+    float: center;
     table-layout: fixed;
     border-collapse: collapse;
 }
