@@ -90,7 +90,7 @@ def init():
                 column.append(td(img(val),c))
             else:
                 column.append(td(img('absent.svg'),c))
-	            lime_c(c)	   
+	        lime_c(c)	   
             c += 1
         line.append(tr(''.join(column)))
    
@@ -98,15 +98,15 @@ def init():
     return tbl
 
 def lime_c(case):
-	cartes = shuffle(deck)
-	lime_card = CARTES[cartes[case-1]+1]
-	if case % COL != 0 and ((lime_card).startswith('A' or '2') is False):
+    cartes = shuffle(deck)
+    lime_card = CARTES[cartes[case-1]+1]
+    if case % COL != 0 and ((lime_card).startswith('A' or '2') is False):
         casel.append(cartes.index(CARTES.index(lime_card)))
-	elif case % COL == 0:
-		casel.append(CARTES[1])
-		casel.append(CARTES[14])
-		casel.append(CARTES[27])
-		casel.append(CARTES[40])	 
+    elif case % COL == 0:
+	casel.append(CARTES[1])
+	casel.append(CARTES[14])
+	casel.append(CARTES[27])
+	casel.append(CARTES[40])	 
     else:
         break          
  
