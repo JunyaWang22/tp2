@@ -100,6 +100,7 @@ def init():
                 card_val =val(cartes,c-1,1)
                 if c % 13 != 0 and card_val.startswith('2') is False:
                     casel.append(cartes.index(CARTES.index(card_val)))
+                    lime_c(c)
 
             c += 1
         line.append(tr(''.join(column)))
@@ -107,6 +108,17 @@ def init():
     tbl = table(''.join(line))
     return tbl
 
+def lime_c(case):
+    lime_card = CARTES[cartes[case-1]+1]
+    if case % COL == 0:
+        sleep(1)
+        i = 1
+        while i < COL*ROW:
+            casel.append(cartes.index(i))
+            i += COL
+
+    if case % COL != 0 and (not (lime_card).startswith('A')) and  (not (lime_card).startswith('2')):    
+        casel.append(cartes.index(CARTES.index(lime_card)))
 
 def clic(id_pos):
     case = '#case' + str(id_pos)
