@@ -68,31 +68,38 @@ def table(contenu): return '<table>' + contenu + '</table>'
 def tr(contenu): return '<tr>' + contenu + '</tr>'
 def case (id_pos): return 'case' + str(id_pos)
 def td(contenu, id_pos): 
-    return '<td' + ' id=' + case (id_pos) + '>' + contenu + '</td>'
-def img(card): return '<img src="cards/'+ card + '">'
+    return '<td' + ' id="' + case(id_pos) + '" onclick="clic(' + str(id_pos) + ')"' + '>' + contenu + '</td>'
+def img(card): return '<img src="cards/'+ card + '"/>'
+
 
 empty = []
-casel=[]
-
+casel=[]   
+cartes = shuffle(deck)
+ 
+def val(cartes,indice,position):
+    return CARTES[cartes[indice]+position]  
+    
 def init():
+    global cartes
     ROW = 4
     COL = 13
     c = 0
-    cartes = shuffle(deck)
+
     line = []
     
     for _ in range(ROW):
         column = []
         for _ in range(COL):
-            val = CARTES[cartes[c]]
+            value = val(cartes,c,0)
             
-            if(not val.startswith('A')):
-                column.append(td(img(val),c))
+            if(not value.startswith('A')):
+                column.append(td(img(value),c))
             else:
                 column.append(td(img('absent.svg'),c))
                 
-                if c % 13 != 0 and ((CARTES[cartes[c-1]+1]).startswith('2') is False):
-                    casel.append(cartes.index(CARTES.index(CARTES[cartes[c-1]+1])))
+                card_val =val(cartes,c-1,1)
+                if c % 13 != 0 and card_val.startswith('2') is False:
+                    casel.append(cartes.index(CARTES.index(card_val)))
 
             c += 1
         line.append(tr(''.join(column)))
@@ -100,19 +107,38 @@ def init():
     tbl = table(''.join(line))
     return tbl
 
-msg = "Vous pouvez encore "
-html_brassage = '''
-<button id="but" onclick="clic()"> Brasser les cartes </button>
-<br><span id="msg"></span>
-<br>'''
-html_redemarre = '''
-<button id="but" onclick="clic()"> Nouvelle partie </button>
-<br><span id="msg"></span>
-<br>'''
-elem.innerHTML = css + init() + msg + html_brassage + html_redemarre
+
+def clic(id_pos):
+    case = '#case' + str(id_pos)
+    
+    # Get the <img> tag inside <td> cell and extract image name
+    card = document.querySelector(case).innerHTML
+    name = card[card.find('/') + 1:card.find('">')]
+    
+    # Get index of the next to which we can moved the highlighted card
+    p = CARTES.index(name) - 1
+    index = cartes.index(p)
+    
+    # Move the card to the empty cell and empty its prior position
+    
+    if id_pos in casel :
+        document.querySelector('#case' + str(index+1)).innerHTML = '<img src="cards/' + name + '">'
+        document.querySelector(case).innerHTML = '<img src="cards/absent.svg">'
+        document.querySelector(case).removeAttribute("style")
+
+    
+# msg = "Vous pouvez encore "
+# html_brassage = '''
+# <button id="brasser" onclick="clic()"> Brasser les cartes </button>
+# <br>
+# <br>'''
+# html_redemarre = '''
+# <button id="redemarre" onclick="clic()"> Nouvelle partie </button>
+# <br>
+# <br>'''
+
+elem.innerHTML = css + init()
 
 for i in range (len(casel)):
     case0 = document.querySelector("#"+case(casel[i]))
     case0.setAttribute("style", "background-color: lime")
-    
-    
