@@ -72,12 +72,14 @@ def td(contenu, id_pos):
 def img(card): return '<img src="cards/'+ card + '">'
 
 empty = []
+COL=13
+ROW=4
 casel=[]
-ROW = 4
-COL = 13
+
 def init():
 
     c = 0
+    global cartes
     cartes = shuffle(deck)
     line = []
     
@@ -90,28 +92,33 @@ def init():
                 column.append(td(img(val),c))
             else:
                 column.append(td(img('absent.svg'),c))
-	        lime_c(c)	   
+                lime_c(c)
+                
             c += 1
         line.append(tr(''.join(column)))
    
     tbl = table(''.join(line))
-    return tbl
+    return tbl    
 
+# def cartes_index(carte):
+#    return cartes.index(CARTES.index(carte))
+    
 def lime_c(case):
-    cartes = shuffle(deck)
     lime_card = CARTES[cartes[case-1]+1]
-    if case % COL != 0 and ((lime_card).startswith('A' or '2') is False):
+    if case % COL == 0:
+        sleep(1)
+        i = 1
+        while i <= COL*ROW:
+            casel.append(cartes.index(CARTES[i]))
+            i += COL
+
+    if case % COL != 0 and (not (lime_card).startswith('A')) and  (not (lime_card).startswith('2')):    
         casel.append(cartes.index(CARTES.index(lime_card)))
-    elif case % COL == 0:
-	casel.append(CARTES[1])
-	casel.append(CARTES[14])
-	casel.append(CARTES[27])
-	casel.append(CARTES[40])	 
-    else:
-        break          
- 
+          
+    
 elem.innerHTML += init()
 
 for i in range (len(casel)):
     case0 = document.querySelector("#"+case(casel[i]))
     case0.setAttribute("style", "background-color: lime")
+
