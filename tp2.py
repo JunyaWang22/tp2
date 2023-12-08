@@ -80,6 +80,7 @@ def val(cartes,indice,position):
     return CARTES[cartes[indice]+position]  
     
 def init():
+    # s'il y a marche pas, colle cartes = shuffle(deck) ici
     global cartes
     ROW = 4
     COL = 13
@@ -96,11 +97,7 @@ def init():
                 column.append(td(img(value),c))
             else:
                 column.append(td(img('absent.svg'),c))
-                
-                card_val =val(cartes,c-1,1)
-                if c % 13 != 0 and card_val.startswith('2') is False:
-                    casel.append(cartes.index(CARTES.index(card_val)))
-                    lime_c(c)
+                lime_c(c)
             c += 1
         line.append(tr(''.join(column)))
    
@@ -117,6 +114,7 @@ def lime_c(case):
 
     if case % COL != 0 and (not (lime_card).startswith('A')) and  (not (lime_card).startswith('2')):    
         casel.append(cartes.index(CARTES.index(lime_card)))
+        # onclick = clic(cartes.index(CARTES.index(lime_card)))
 
 def clic(id_pos):
     case = '#case' + str(id_pos)
