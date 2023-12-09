@@ -3,7 +3,7 @@
 
 import math
 
-elem = document.querySelector('#cb-body')
+racine = document.querySelector('#cb-body')
 
 css = """
 <style>
@@ -41,8 +41,8 @@ css = """
 #cb-body table td img { height: auto; }
 </style>
 """
-elem.innerHTML = css
-deck = list(range(0,52))
+racine.innerHTML = css
+paquet = list(range(0,52))
 
 chiffre = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 cartesC=[]
@@ -56,13 +56,13 @@ for i in range (len(chiffre)):
     cartesS.append(chiffre[i]+'S.svg')
 CARTES = cartesC + cartesD + cartesH + cartesS
 
-def shuffle(deck):
-    for i in range(len(deck) -1, -1, -1):
+def brasser(paquet):
+    for i in range(len(paquet) -1, -1, -1):
         j = math.floor(random() * (i+1))
-        tmp = deck[i]
-        deck[i] = deck[j]
-        deck[j] = tmp
-    return deck
+        tmp = paquet[i]
+        paquet[i] = paquet[j]
+        paquet[j] = tmp
+    return paquet
 
 def table(contenu): return '<table>' + contenu + '</table>'
 def tr(contenu): return '<tr>' + contenu + '</tr>'
@@ -72,18 +72,19 @@ def td(contenu, id_pos):
 def img(card): return '<img src="cards/'+ card + '"/>'
 
 
-empty = []
-casel=[]   
-cartes = shuffle(deck)
- 
+trou = []
+idx_cartes_lime=[]   
+cartes = brasser(paquet)
+ROW = 4
+COL = 13
+c = 0
+
 def val(cartes,indice,position):
     return CARTES[cartes[indice]+position]  
+
     
 def init():
-    global cartes
-    ROW = 4
-    COL = 13
-    c = 0
+    global cartes,ROW, COL, c
 
     line = []
     
@@ -96,17 +97,34 @@ def init():
                 column.append(td(img(value),c))
             else:
                 column.append(td(img('absent.svg'),c))
-                
-                card_val =val(cartes,c-1,1)
-                if c % 13 != 0 and card_val.startswith('2') is False:
-                    casel.append(cartes.index(CARTES.index(card_val)))
-
+                trou.append(cartes.index(c))
+                trouver_idx(c)
             c += 1
         line.append(tr(''.join(column)))
    
     tbl = table(''.join(line))
     return tbl
 
+def lime():
+    for i in range (len(idx_cartes_lime)):
+        case0 = document.querySelector("#"+case(idx_cartes_lime[i]))
+        case0.setAttribute("style", "background-color: lime")
+
+def trouver_idx(case):
+# card_val =val(cartes,c-1,1)
+        p = cartes[case-1]+1
+        if p > 51: return
+        
+        carte_lime = CARTES[p]
+        if case % COL == 0:
+            i = 1
+            #breakpoint()
+            while i < COL*ROW:
+                idx_cartes_lime.append(cartes.index(i))
+                i += COL
+
+        if case % COL != 0 and not(carte_lime).startswith('A') and not(carte_lime).startswith('2'):
+            idx_cartes_lime.append(cartes.index(CARTES.index(carte_lime)))
 
 def clic(id_pos):
     case = '#case' + str(id_pos)
@@ -119,12 +137,15 @@ def clic(id_pos):
     p = CARTES.index(name) - 1
     index = cartes.index(p)
     
-    # Move the card to the empty cell and empty its prior position
+    # Move the card to the trou cell and trou its prior position
     
-    if id_pos in casel :
+    if id_pos in idx_cartes_lime :
         document.querySelector('#case' + str(index+1)).innerHTML = '<img src="cards/' + name + '">'
         document.querySelector(case).innerHTML = '<img src="cards/absent.svg">'
         document.querySelector(case).removeAttribute("style")
+        trouver_idx(id_pos)
+        idx_cartes_lime.remove(id_pos)
+        lime()
 
     
 # msg = "Vous pouvez encore "
@@ -137,8 +158,5 @@ def clic(id_pos):
 # <br>
 # <br>'''
 
-elem.innerHTML = css + init()
-
-for i in range (len(casel)):
-    case0 = document.querySelector("#"+case(casel[i]))
-    case0.setAttribute("style", "background-color: lime")
+racine.innerHTML = css + init()
+lime()
