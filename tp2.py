@@ -35,7 +35,6 @@ css = """
     width: 100%;
     height: 100%;
 }
-
 #cb-body { float: none; }
 #cb-body table td { border: 0; padding: 1px 2px; height: auto; }
 #cb-body table td img { height: auto; }
@@ -79,8 +78,8 @@ ROW = 4
 COL = 13
 c = 0
 
-def val(cartes,indice,position):
-    return CARTES[cartes[indice]+position]  
+#def val(cartes,indice,position):
+#    return CARTES[cartes[indice]+position]  
 
     
 def init():
@@ -91,7 +90,7 @@ def init():
     for _ in range(ROW):
         column = []
         for _ in range(COL):
-            value = val(cartes,c,0)
+            value = CARTES[cartes[c]]
             
             if(not value.startswith('A')):
                 column.append(td(img(value),c))
@@ -102,8 +101,8 @@ def init():
             c += 1
         line.append(tr(''.join(column)))
    
-    tbl = table(''.join(line))
-    return tbl
+    tableau = table(''.join(line))
+    return tableau
 
 def lime():
     for i in range (len(idx_cartes_lime)):
@@ -147,16 +146,42 @@ def clic(id_pos):
         idx_cartes_lime.remove(id_pos)
         lime()
 
-    
-# msg = "Vous pouvez encore "
-# html_brassage = '''
-# <button id="brasser" onclick="clic()"> Brasser les cartes </button>
-# <br>
-# <br>'''
-# html_redemarre = '''
-# <button id="redemarre" onclick="clic()"> Nouvelle partie </button>
-# <br>
-# <br>'''
+def aligne():
+    for i in range (COL):
+        if column[:i]== cartesC[:i] or cartesD[:i] or cartesS[:i] or cartesH[:i]:
+            return True
+      
+# def cartes_index(carte):
+#    return cartes.index(CARTES.index(carte))
+#def clic(case):
+   # lime_card.replace('absent.svg')
 
-racine.innerHTML = css + init()
+def brassage():
+    msg = "Vous pouvez encore "
+    html_brassage = '''
+    <button id="brasser" onclick="brassage()"> Brasser les cartes </button>
+    <br>
+    <br>'''
+    msg1 = "fois"
+    return msg + html_brassage + msg1
+    #print("hello")
+    # elem.innerHTML = css + init() + msg + html_brassage + html_redemarre
+
+
+def redemarre():
+    brasser(CARTES)
+    
+def result():
+    if line == CARTES:
+        print("Vous avez réussi!  Bravo!")
+    if idx_cartes_lime == [] and brassage()==False and line != CARTES:
+        print("Vous n'avez pas réussi à placer toutes les cartes... Essayez à nouveau!")
+
+
+html_redemarre = '''
+<button id="redemarre" onclick="redemarre()"> Nouvelle partie </button>
+<br>
+<br>'''
+
+racine.innerHTML = css + init() + brassage() + html_redemarre
 lime()
