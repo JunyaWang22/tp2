@@ -42,15 +42,21 @@ def clic(liste, absent,nv_absent,carte):
 # une façon bcp plus lisible correspond list(range(52)) à CARTES
 def init():
     line=[]
+    index_lime=[]
     cartes = brasser(paquet)
     img_cartes=[0]*52
     for i in range(len(paquet)):
-        if paquet[i]== 0 or paquet[i]== 13 or paquet[i]== 26 or paquet[i]== 39:
-            img_cartes[i]==td(img('absent.svg'),i)
+        id_carte = paquet[i]
+        if id_carte == 0 or id_carte == 13 or id_carte == 26 or id_carte == 39:
+            img_cartes[i]=td(img('absent.svg'),i)
+            if i == 0 or i == 13 or i == 26 or i == 39:
+                index_lime.extend([1,14,27,40])
+            else:
+                index_lime.append(paquet[i-1]+1)
         else:
-            img_cartes[i]==td(img(CARTES[i]),i)
+            img_cartes[i]=td(img(CARTES[id_carte]),i)
     for i in range(0,52-13,13):
-        line.append(tr(''.join(img_cartes[i:i+13])))
+        line.append(tr(''.join(str(img_cartes[i:i+13]))))
    
     tableau = table(''.join(line))
     return tableau
