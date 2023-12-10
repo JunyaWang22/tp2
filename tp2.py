@@ -76,14 +76,14 @@ idx_cartes_lime=[]
 cartes = brasser(paquet)
 ROW = 4
 COL = 13
-c = 0
 
 #def val(cartes,indice,position):
 #    return CARTES[cartes[indice]+position]  
 
     
 def init():
-    global cartes,ROW, COL, c
+    global cartes,ROW, COL
+    c = 0 
 
     line = []
     
@@ -158,30 +158,26 @@ def aligne():
 
 def brassage():
     msg = "Vous pouvez encore "
-    html_brassage = '''
-    <button id="brasser" onclick="brassage()"> Brasser les cartes </button>
-    <br>
-    <br>'''
-    msg1 = "fois"
+    html_brassage = '''<button id="brasser" onclick="brassage()">Brasser les cartes </button>'''
+    msg1 = "fois\n"
     return msg + html_brassage + msg1
     #print("hello")
     # elem.innerHTML = css + init() + msg + html_brassage + html_redemarre
 
 
+html_redemarre = "<button id=""redemarre"" onclick=redemarre()> Nouvelle partie </button>"
+
 def redemarre():
-    brasser(CARTES)
+    brasser(paquet)
+    racine.innerHTML = css + init() + brassage() + html_redemarre
+    clic()
+    lime() 
     
 def result():
     if line == CARTES:
         print("Vous avez réussi!  Bravo!")
     if idx_cartes_lime == [] and brassage()==False and line != CARTES:
         print("Vous n'avez pas réussi à placer toutes les cartes... Essayez à nouveau!")
-
-
-html_redemarre = '''
-<button id="redemarre" onclick="redemarre()"> Nouvelle partie </button>
-<br>
-<br>'''
-
+        
 racine.innerHTML = css + init() + brassage() + html_redemarre
 lime()
