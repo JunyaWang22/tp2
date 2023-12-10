@@ -7,37 +7,15 @@ racine = document.querySelector('#cb-body')
 
 css = """
 <style>
-#cb-body { font-size: 24px; }
-#cb-body td { border: 1px solid black; }
-#cb-body table {
-    float: left;
-    table-layout: fixed;
-    border-collapse: collapse;
-}
 #cb-body td {
-    padding: 0;
-    font-family: Helvetica;
-    text-align: center;
-    vertical-align: center;
-    border: 1px solid black;
-}
-
-#cb-body td {
-    width: 100px;
-    height: 100px;
-    font-size: 60px;
+    width: 14vh;
+    height: 20vh;
 }
 
 #cb-body table td img {
-    display: block;
-    object-fit: contain;
-    vertical-align: middle;
     width: 100%;
     height: 100%;
 }
-#cb-body { float: none; }
-#cb-body table td { border: 0; padding: 1px 2px; height: auto; }
-#cb-body table td img { height: auto; }
 </style>
 """
 racine.innerHTML = css
@@ -117,7 +95,6 @@ def trouver_idx(case):
         carte_lime = CARTES[p]
         if case % COL == 0:
             i = 1
-            #breakpoint()
             while i < COL*ROW:
                 idx_cartes_lime.append(cartes.index(i))
                 i += COL
@@ -170,8 +147,7 @@ html_redemarre = "<button id=""redemarre"" onclick=redemarre()> Nouvelle partie 
 def redemarre():
     brasser(paquet)
     racine.innerHTML = css + init() + brassage() + html_redemarre
-    clic()
-    lime() 
+    lime()
     
 def result():
     if line == CARTES:
