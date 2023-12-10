@@ -65,11 +65,15 @@ def lime(liste):
 
 def clic(nv_absent,carte):
     img_cartes.pop(i)
-    img_cartes.insert(img('absent.svg'),carte)
+    img_cartes.insert(td(img('absent.svg')),carte)
     img_cartes.pop(nv_absent)
     img_cartes.insert(nv_absent,td(img('absent.svg'),nv_absent))
-    lime(index_lime)
+    # absent_liste.pop(i), absent_liste.insert(i, nv_absent)
     
+    lime(index_lime)
+
+# pas de querySelector et tout parce que les listes devrait changer et lime devrait être changé récursive
+
 def init():
     global img_cartes,index_lime
     line=[]
