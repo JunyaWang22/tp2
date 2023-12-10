@@ -55,8 +55,8 @@ def init():
                 index_lime.append(paquet[i-1]+1)
         else:
             img_cartes[i]=td(img(CARTES[id_carte]),i)
-    for i in range(0,52-13,13):
-        line.append(tr(''.join(str(img_cartes[i:i+13]))))
+    for i in range(0,52,13):
+        line.append(tr(''.join(img_cartes[i:i+13])))
    
     tableau = table(''.join(line))
     return tableau
