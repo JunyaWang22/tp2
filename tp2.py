@@ -137,8 +137,9 @@ def brassage():
     msg = "Vous pouvez encore "
     html_brassage = '''<button id="brasser" onclick="brassage()">Brasser les cartes </button>'''
     msg1 = "fois\n"
+    print("hello")
     return msg + html_brassage + msg1
-    #print("hello")
+    
     # elem.innerHTML = css + init() + msg + html_brassage + html_redemarre
 
 
