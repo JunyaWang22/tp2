@@ -247,15 +247,19 @@ def redemarre():
     racine.innerHTML = css + init() + bouton + html_redemarre
     lime()
 
-# Procédure pour afficher le résultat.
-import functools
-from itertools import permutations    
+# Procédure pour afficher le résultat. On extrait les chiffres des cartes et
+# le compare avec la liste de chiffre en ordre.
 def result():
     brassage()
-    if nouvelle_ligne == functools.reduce(permutations(cartesC, cartesD, cartesH, cartesS)):
+    ligne_chiffre=[]
+    for _ in range(COL):
+        for i in range(RANGEE):
+            ligne_chiffre.append(nouvelle_ligne[i][:3])
+    if ligne_chiffre == chiffre * 4:
         resultat = print("Vous avez réussi!  Bravo!")
     if idx_cartes_lime == [] and bouton==False and line != CARTES:
-        resultat = print("Vous n'avez pas réussi à placer toutes les cartes... Essayez à nouveau!")
+        resultat = print("Vous n'avez pas réussi à placer toutes les cartes..."
+                        "Essayez à nouveau!")
     return resultat
 
 racine = document.querySelector('#cb-body')
