@@ -12,7 +12,7 @@ import math
 
 
 # Création du paquet de cartes en ordre croissant des chiffres de 'A' à 'K'.
-paquet = list(range(0,52))
+paquet = list(range(0,52)) 
 chiffre = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 cartesC=[]
 cartesD=[]
