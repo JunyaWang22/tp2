@@ -39,25 +39,48 @@ def brasser(paquet):
     return paquet
 
 # Fonction qui prend un paramètre,contenu, et retourne une balise HTML table. 
-def table(contenu): return '<table>' + contenu + '</table>'
+def table(contenu): 
+    return '<table>' + contenu + '</table>'
+
+def testtable():
+    assert table('ffhf') == '<table>ffhf</table>'
+testtable()
 
 # Fonction qui prend un paramètre,contenu, et retourne une balise HTML tr. 
-def tr(contenu): return '<tr>' + contenu + '</tr>'
+def tr(contenu): 
+    return '<tr>' + contenu + '</tr>'
+
+def testtr():
+    assert tr('fvueil') == '<tr>fvueil</tr>'
+testtr()
 
 # Fonction qui prend la position d'affichage d'un case et retourne un id sous 
 # forme de string.
-def case (id_pos): return 'case' + str(id_pos)
+def case (id_pos): 
+    return 'case' + str(id_pos)
+
+def testcase():
+    case(3) == 'case3'
+testcase()
 
 # Fonction qui prend le contenu et un chaine de caracteres de la position 
 # d'affichage et retrourne une balise HTML td.
 def td(contenu, id_pos): 
     return '<td' + ' id="' + case(id_pos) + '" onclick="clic(' + str(id_pos) + ')"' + '>' + contenu + '</td>'
 
+def testtd():
+    assert td('2D.svg',44) == '<td id="44" onclick="clic(44)">2D.svg</td>'
+testtd()
+
 # Fonction qui prend le nom de la carte sous forme de chaine de caractères
 # comme paramètre pour l'inserer dans la balise HTML img src permettant de
 # faire reference à la bonne image à afficher.
-def img(card): return '<img src="cards/'+ card + '"/>'
+def img(card): 
+    return '<img src="cards/'+ card + '"/>'
 
+def testimg():
+    assert img('AS.svg') == '<img src="cards/AS.svg"/>'
+testimg()
 
 AS = ['AS.svg','AH.svg','AC.svg','AD.svg']
 DEUX  = ['2S.svg','2H.svg','2C.svg','2D.svg']
@@ -112,6 +135,11 @@ def trouver_idx(case):
 
         if case % COL != 0 and carte_lime not in AS and carte_lime not in DEUX:
             idx_cartes_lime.append(cartes.index(CARTES.index(carte_lime)))
+
+def testtrouver_idx():
+    assert trouver_idx(0) == [1,14,27,40]
+    assert trouver_idx(13) == [1,14,27,40]
+testtrouver_idx()
 
 # Fonction pour le cas spécial des '2' qui prend name, chaine de charactere, 
 # en paramètre, pour determiner les index des cartes "2" qui seront vertes et 
