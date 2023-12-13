@@ -68,7 +68,7 @@ def td(contenu, id_pos):
 
 # Test unitaire pour fonction td 
 def testtd():
-    assert td('2D.svg',44) == '<td id="44" onclick="clic("44")">2D.svg</td>'
+    assert td('2D.svg',44) == '<td id="case44" onclick="clic(44)">2D.svg</td>'
 #testtd() # mis en commentaire pour ne pas affecter le jeu
 
 # Fonction qui prend le nom de la carte sous forme de chaine de caractères
@@ -247,11 +247,11 @@ partie </button>"""
 
     # if essai > 0:
     #     if idx_cartes_lime == []:
-    #         bouton = (msg2 + html_brassage)
+    #         bouton = str(msg2 + html_brassage)
     #     else:
-    #         bouton = (msg + html_brassage + msg1)
+    #         bouton = str(msg + html_brassage + msg1)
     # else:
-    #     bouton = msg3
+    #     bouton = str(msg3)
     # return bouton, nouvelle_ligne
 
 # Procédure qui va reinintialiser le partie avec un nouveau brassage du paquet 
