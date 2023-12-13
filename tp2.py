@@ -134,7 +134,6 @@ def trouver_idx(case):
 # en paramètre, pour determiner les index des cartes "2" qui seront vertes et 
 # retourne l'index de la carte "2" à déplacer. 
 def placer_deux(nom):
-    global DEUX
     index_as=[] #liste des index dans cartes des 'AS'
     
     #Crée une liste avec les '2' qui n'ont pas été cliqués.
